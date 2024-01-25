@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TimeTracker.Models.Entities;
+using TimeTracker.Repositories.Interfaces;
 
 namespace TimeTracker.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        private readonly INewsRepository _newsRepository;
+        public AdminController(INewsRepository newsRepository)
+        {
+            _newsRepository = newsRepository;
+        }
         // GET: AdminController
         public ActionResult Index()
         {
@@ -20,6 +27,13 @@ namespace TimeTracker.Controllers
             var listUsers = new List<string>();
 
             return View(listUsers);
+        }
+
+        public async Task<ActionResult> News()
+        {
+            var listNews = await _newsRepository.GetNewsAsync();
+
+            return View(listNews);
         }
 
         //// GET: AdminController/Details/5

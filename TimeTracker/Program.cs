@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.Data;
 using TimeTracker.Models;
-//
+using TimeTracker.Repositories;
+using TimeTracker.Repositories.Interfaces;
+
 namespace TimeTracker
 {
     public class Program
@@ -22,6 +24,8 @@ namespace TimeTracker
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddTransient<INewsRepository, NewsRepository>();
 
             var app = builder.Build();
 
