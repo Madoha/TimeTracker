@@ -10,12 +10,16 @@ namespace TimeTracker.Controllers
         // GET: AdminController
         public ActionResult Index()
         {
+            bool isAdmin = User.IsInRole("Admin");
+
             return View();
         }
 
         public ActionResult Users()
         {
-            return View();
+            var listUsers = new List<string>();
+
+            return View(listUsers);
         }
 
         //// GET: AdminController/Details/5
