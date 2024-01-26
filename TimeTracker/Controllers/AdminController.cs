@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using TimeTracker.DTOs;
 using TimeTracker.Models.Entities;
 using TimeTracker.Repositories.Interfaces;
 
@@ -10,9 +13,12 @@ namespace TimeTracker.Controllers
     public class AdminController : Controller
     {
         private readonly INewsRepository _newsRepository;
-        public AdminController(INewsRepository newsRepository)
+        private readonly IMapper _mapper;
+        public AdminController(INewsRepository newsRepository, IMapper mapper)
         {
             _newsRepository = newsRepository;
+            _mapper = mapper;
+
         }
         // GET: AdminController
         public ActionResult Index()
@@ -34,6 +40,33 @@ namespace TimeTracker.Controllers
             var listNews = await _newsRepository.GetNewsAsync();
 
             return View(listNews);
+        }
+
+        [Route("/admin/news/createNews")]
+        [HttpGet]
+        public async Task<IActionResult> CreateNews()
+        {
+            return View();
+        }
+
+        [HttpPost("/admin/news/createNews")]
+        public async Task<IActionResult> Create(NewsDto newsDto)
+        {
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var news = _mapper.Map<News>(newsDto);
+                news.AuthorId = userId;
+                news.Date = DateTime.SpecifyKind(news.Date, DateTimeKind.Utc);
+
+                var result = await _newsRepository.CreateNewsAsync(news);
+            }
+
+            return Redirect("/admin/news");
         }
 
         //// GET: AdminController/Details/5

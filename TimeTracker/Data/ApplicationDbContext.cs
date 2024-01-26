@@ -33,10 +33,10 @@ namespace TimeTracker.Data
                 .Property(e => e.CreateDate)
                 .HasDefaultValueSql("now()");
 
-            builder
-                .Entity<News>()
-                .Property(e => e.IsActive)
-                .HasDefaultValue(true);
+            //builder
+            //    .Entity<News>()
+            //    .Property(e => e.IsActive)
+            //    .HasDefaultValue(true);
         }
     }
 }

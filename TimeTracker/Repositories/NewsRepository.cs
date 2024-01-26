@@ -16,7 +16,20 @@ namespace TimeTracker.Repositories
 
         public async Task<List<News>> GetNewsAsync()
         {
-            return await _context.News.ToListAsync();
+            return await _context.News.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<List<News>> GetOnlyActiveNewsAsync()
+        {
+            return await _context.News.Where(n => n.IsActive).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<News> CreateNewsAsync(News news)
+        {
+            await _context.News.AddAsync(news);
+            await _context.SaveChangesAsync();
+
+            return news;
         }
     }
 }
