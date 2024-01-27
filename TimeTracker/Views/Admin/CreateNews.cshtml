@@ -1,0 +1,41 @@
+﻿@model TimeTracker.DTOs.NewsDto
+@{
+    ViewData["Title"] = "Create News";
+}
+
+<div>
+    <h1 class="display-4">Create News</h1>
+
+    <form method="post" action="">
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" asp-for="Title">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Text</label>
+            <input type="text" class="form-control" asp-for="Text">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Publication Date</label>
+            <input type="text" id="publicationDateInput" class="form-control date" asp-for="Date">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Is Active?</label>
+            <input type="checkbox" checked="checked" asp-for="IsActive">
+        </div>
+
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </form>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#publicationDateInput').datepicker({
+            format: 'dd/mm/yyyy'
+        })
+    </script>
+}
+
