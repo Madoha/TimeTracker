@@ -69,6 +69,8 @@ namespace TimeTracker.Controllers
             return Redirect("/admin/news");
         }
 
+
+
         //// GET: AdminController/Details/5
         //public ActionResult Details(int id)
         //{
