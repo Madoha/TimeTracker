@@ -4,3 +4,4 @@
 - chart js
 - login/register pages
 - hero
+- store images, profile logo
