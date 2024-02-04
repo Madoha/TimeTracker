@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.Data;
+using TimeTracker.Hubs;
+using TimeTracker.MiddlewareExtensions;
 using TimeTracker.Models;
 using TimeTracker.Repositories;
 using TimeTracker.Repositories.Interfaces;
+using TimeTracker.SubscribeTableDependencies;
 
 namespace TimeTracker
 {
@@ -14,10 +17,12 @@ namespace TimeTracker
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddSignalR();
+
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<User>(options =>
@@ -30,9 +35,16 @@ namespace TimeTracker
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();
+
+            // DI
+            builder.Services.AddSingleton<DashboardHub>();
+            builder.Services.AddSingleton<SubscribeFinanceTableDependency>();
+
             builder.Services.AddRazorPages();
 
             builder.Services.AddTransient<INewsRepository, NewsRepository>();
+
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -56,10 +68,14 @@ namespace TimeTracker
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapHub<DashboardHub>("/dashboardHub");
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.UseSqlTableDependency<SubscribeFinanceTableDependency>(connectionString);
+
             app.MapRazorPages();
 
             app.Run();

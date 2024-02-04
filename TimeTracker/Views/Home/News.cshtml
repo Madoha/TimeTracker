@@ -3,7 +3,7 @@
 }
 
 <!-- start page title -->
-<div class="row">
+@* <div class="row">
     <div class="col-12">
         <div class="page-title-box">
             <h4 class="page-title">News</h4>
@@ -19,5 +19,32 @@
             </ul>
         </div>
     </div>
-</div>
+</div> *@
 <!-- end page title -->
+
+
+<div class="row text-center">
+
+@foreach (var item in Model)
+{
+
+@*             <div class="col-sm-6"> *@
+            <div class="col-sm-6 mx-auto" style="padding-top: 10px;">
+
+                <!-- Simple card -->
+                <div class="card d-block">
+                <img class="card-img-top" src="https://www.keyclub.org/wp-content/uploads/sites/19/2020/10/Updated_Black.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">
+                            @item.Text
+                        </p>
+                        <a href="javascript: void(0);" class="btn btn-primary">Button</a>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div>
+@*             </div> *@
+        
+  
+}
+</div>

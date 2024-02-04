@@ -135,7 +135,9 @@ $.validator.addMethod( "bankaccountNL", function( value, element ) {
 		return false;
 	}
 
-	// Now '11 check'
+	// 
+
+	'11 check'
 	var account = value.replace( / /g, "" ), // Remove spaces
 		sum = 0,
 		len = account.length,

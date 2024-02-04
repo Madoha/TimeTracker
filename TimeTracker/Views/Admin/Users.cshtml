@@ -2,6 +2,48 @@
     ViewData["Title"] = "Users";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Users</h1
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+<div>
+    <br />
+    <h1>Users</h1>
+    <hr />
+    <br />
+
+<table id="basic-datatable" class="table table-bordered table-centered mb-0">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Lockout End</th>
+            <th>Created Date</th>
+            <th>Block</th>
+            <th>Unblock</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td class="table-user">
+                    <img src="assets/images/users/avatar-6.jpg" alt="table-user" class="me-2 rounded-circle" />
+                    @item.UserName
+                </td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Email</td>
+                <td>@item.LockoutEnd?.ToString("yyyy.MM.dd HH:mm")</td>
+                <td>@item.Created.ToString("yyyy.MM.dd HH:mm")</td>
+                <td class="table-action">
+                    <a class="action-icon" href="/admin/users/block/@item.Id"> <i class="dripicons-wrong"></i></a>
+                </td>
+                <td class="table-icon">
+                        <a class="action-icon" href="/admin/users/unblock/@item.Id"> <i class="dripicons-checkmark"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 </div>

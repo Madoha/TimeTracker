@@ -31,5 +31,28 @@ namespace TimeTracker.Repositories
 
             return news;
         }
+
+        public async Task<News> GetNewsByIdAsync(int id)
+        {
+            return await _context.News.Where(n => n.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<News> UpdateNewsAsync(News news)
+        {
+            await _context.News
+                .Where(n => n.Id == news.Id)
+                .ExecuteUpdateAsync(p => p
+                    .SetProperty(d => d.Title, news.Title)
+                    .SetProperty(d => d.Text, news.Text)
+                    .SetProperty(d => d.IsActive, news.IsActive)
+                    .SetProperty(d => d.Date, news.Date));
+
+            return news;
+        }
+
+        public async Task DeleteNewsAsync(int id)
+        {
+            await _context.News.Where(n => n.Id == id).ExecuteDeleteAsync();
+        }
     }
 }

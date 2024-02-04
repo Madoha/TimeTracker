@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SQLitePCL;
 using System.Security.Claims;
 using TimeTracker.DTOs;
 using TimeTracker.Models.Entities;
@@ -14,11 +15,14 @@ namespace TimeTracker.Controllers
     {
         private readonly INewsRepository _newsRepository;
         private readonly IMapper _mapper;
-        public AdminController(INewsRepository newsRepository, IMapper mapper)
+        private readonly IUserRepository _userRepository;
+        public AdminController(INewsRepository newsRepository, 
+            IMapper mapper,
+            IUserRepository userRepository)
         {
             _newsRepository = newsRepository;
             _mapper = mapper;
-
+            _userRepository = userRepository;
         }
         // GET: AdminController
         public ActionResult Index()
@@ -28,11 +32,12 @@ namespace TimeTracker.Controllers
             return View();
         }
 
-        public ActionResult Users()
+        [HttpGet("/admin/users")]
+        public async Task<IActionResult> Users()
         {
-            var listUsers = new List<string>();
+            var users = await _userRepository.GetUsersAsync();
 
-            return View(listUsers);
+            return View(users);
         }
 
         public async Task<ActionResult> News()
@@ -69,8 +74,46 @@ namespace TimeTracker.Controllers
             return Redirect("/admin/news");
         }
 
+        [HttpGet("/admin/news/edit/{id}")]
+        public async Task<IActionResult> EditNews(int id)
+        {
+            var news = await _newsRepository.GetNewsByIdAsync(id);
 
+            return View(news);
+        }
 
+        [HttpPost("/admin/news/edit/{id}")]
+        public async Task<IActionResult> Edit(News news)
+        {
+            news.Date = DateTime.SpecifyKind(news.Date, DateTimeKind.Utc);
+
+            await _newsRepository.UpdateNewsAsync(news);
+
+            return Redirect("/admin/news");
+        }
+
+        [HttpGet("/admin/news/delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _newsRepository.DeleteNewsAsync(id);
+            return Redirect("/admin/news");
+        }
+
+        [HttpGet("/admin/users/block/{id}")]
+        public async Task<IActionResult> BlockUser(string id)
+        {
+            await _userRepository.BlockUserAsync(id);
+
+            return Redirect("/admin/users");
+        }
+
+        [HttpGet("/admin/users/unblock/{id}")]
+        public async Task<IActionResult> UnblockUser(string id)
+        {
+            await _userRepository.UnblockUserAsync(id);
+
+            return Redirect("/admin/users");
+        }
         //// GET: AdminController/Details/5
         //public ActionResult Details(int id)
         //{

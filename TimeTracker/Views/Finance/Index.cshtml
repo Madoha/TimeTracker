@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Finances";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Main</a></li>
+                    <li class="breadcrumb-item active">Finances</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Finances</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <!-- Checkout Steps -->
+                <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                    <li class="nav-item">
+                        <a href="#billing-information" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                            <i class="mdi mdi-account-circle font-18"></i>
+                            <span class="d-none d-lg-block">Finance Status</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#shipping-information" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                            <i class="mdi mdi-truck-fast font-18"></i>
+                            <span class="d-none d-lg-block">Financial Changes</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Steps Information -->
+                <div class="tab-content">
+
+                    <!-- Billing Content-->
+                    <div class="tab-pane show active" id="billing-information">
+                        <div class="row">
+                            <div>
+                                <div class="row">
+                                    <div class="">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h4>Finances</h4>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <table class="table table-hover" id="tblFinance">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Description</th>
+                                                            <th>Amount</th>
+                                                            <th>Category</th>
+                                                            <th>Transaction Type</th>
+                                                            <th>Author Id</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h4>Products</h4>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <canvas id="canvasFinances" width="400" height="400"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h4>LineChart</h4>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <canvas id="canvasChart" width="500" height="400"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h4>Bars Chart</h4>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <canvas id="canvasBarGraph" width="300" height="400"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end row-->
+                    </div>
+                    <!-- End Billing Information Content-->
+                    <!-- Shipping Content-->
+                    <div class="tab-pane" id="shipping-information">
+                        
+                    </div>
+
+                </div> <!-- end tab content-->
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/js/dashboard.js"></script>
+}

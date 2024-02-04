@@ -12,31 +12,39 @@ namespace TimeTracker.Data
         {
         }
 
+        public DbSet<User> Users => Set<User>();
         public DbSet<News> News => Set<News>();
+
+        public DbSet<Finance> Finance => Set<Finance>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+            
             builder
                 .Entity<User>()
                 .Property(u => u.Created)
-                .HasDefaultValueSql("now()");
+                .HasDefaultValueSql("SYSUTCDATETIME()");
 
             builder
                 .Entity<News>()
                 .Property(n => n.Date)
-                .HasDefaultValueSql("now()");
+                .HasDefaultValueSql("SYSUTCDATETIME()");
 
             builder
                 .Entity<News>()
                 .Property(e => e.CreateDate)
-                .HasDefaultValueSql("now()");
+                .HasDefaultValueSql("SYSUTCDATETIME()");
+            
+            builder
+               .Entity<Finance>()
+               .Property(e => e.Date)
+               .HasDefaultValueSql("SYSUTCDATETIME()");
 
-            //builder
-            //    .Entity<News>()
-            //    .Property(e => e.IsActive)
-            //    .HasDefaultValue(true);
+            builder
+                .Entity<News>()
+                .Property(e => e.IsActive)
+                .HasDefaultValue(true);
         }
     }
 }

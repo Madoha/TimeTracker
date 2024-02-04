@@ -2,39 +2,55 @@
     ViewData["Title"] = "News";
 }
 
-<div>
-    <h1 class="display-4">News</h1>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 
+<div>
+    <br />
+    <h1>News</h1>
+    <br />
     <a href="/admin/news/createNews" role="button" class="btn btn-primary">Create news</a>
 
     <br />
     <hr />
     <br />
 
-    <table cellpadding="10">
-        <tr>
-            <th>Title</th>
-            <th>Text</th>
-            <th>Publication Date</th>
-            <th>Is Active?</th>
-            <th>Author ID</th>
-            <th>Created Date</th>
-            <th></th>
-            <th></th>
-        </tr>
+    <table id="basic-datatable" class="display">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Publication Date</th>
+                <th>Is Active?</th>
+                <th>Author ID</th>
+                <th>Created Date</th>
+                <th></th>
+                <th></th>
+            </tr>            
+        </thead>
+        <tbody>
+
     @foreach(var item in Model)
     {
-        <tr>
-                <td>@item.Title</td>
-                <td>@item.Text</td>
-                <td>@item.Date.ToString("yyyy.MM.dd HH:mm")</td>
-                <td>@item.IsActive</td>
-                <td>@item.AuthorId</td>
-                <td>@item.CreateDate.ToString("yyyy.MM.dd HH:mm")</td>
-                <td><a href="">Edit</a></td>
-                <td><a href="">Delete</a></td>
-        </tr>   
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Text</td>
+                    <td>@item.Date.ToString("yyyy.MM.dd HH:mm")</td>
+                    <td>@item.IsActive</td>
+                    <td>@item.AuthorId</td>
+                    <td>@item.CreateDate.ToString("yyyy.MM.dd HH:mm")</td>
+                    <td><a href="/admin/news/edit/@item.Id">Edit</a></td>
+                    <td><a href="/admin/news/delete/@item.Id">Delete</a></td>
+                </tr>
     }
+        </tbody>
+
     </table>
 
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#basic-datatable').DataTable();
+    });
+</script>

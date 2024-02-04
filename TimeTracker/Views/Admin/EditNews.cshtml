@@ -1,10 +1,10 @@
-﻿@model TimeTracker.DTOs.NewsDto
+﻿@model TimeTracker.Models.Entities.News
 @{
-    ViewData["Title"] = "Create News";
+    ViewData["Title"] = "Edit News";
 }
 
 <div>
-    <h1 class="display-4">Create News</h1>
+    <h1 class="display-4">Edit News</h1>
 
     <form method="post" action="">
         <div class="mb-3">
@@ -27,12 +27,7 @@
             <input type="checkbox" checked="checked" asp-for="IsActive">
         </div>
 
-        <div class="mb-3">
-            <label class="form-label" for="customFile">Post image</label>
-            <input type="file" class="form-control" id="customFile" />
-        </div>
-
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Update" class="btn btn-primary" />
     </form>
 </div>
 

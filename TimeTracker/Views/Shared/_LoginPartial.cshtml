@@ -12,41 +12,48 @@
         <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
            aria-expanded="false">
             <span class="account-user-avatar">
-                <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Images.png" alt="user-image" class="rounded-circle">
             </span>
             <span>
                 <span class="account-user-name">
-                    @User.Identity?.Name!
+                    @User.Identity?.Name
+                </span>
+            </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+            
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Manage/Index">
+                <button type="submit" class="dropdown-item notify-item">My Account</button>
+            </form>
+
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="dropdown-item notify-item">Logout</button>
+                </form>
+        </div>
+    }
+    else
+    {
+        <a class="nav-link dropdown-toggle nav-user arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+           aria-expanded="false">
+            <span class="account-user-avatar">
+                <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Images.png" alt="user-image" class="rounded-circle">
+            </span>
+            <span>
+                <span class="account-user-name">
+                    
                 </span>
             </span>
         </a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
 
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                <i class="mdi mdi-account-circle me-1"></i>
-                <span><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Account</a></span>
-            </a>
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Login">
+                <button type="submit" class="dropdown-item notify-item">Login</button>
+            </form>
 
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                <i class="mdi mdi-lifebuoy me-1"></i>
-                <span>Support</span>
-            </a>
-
-            <!-- item-->
-
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="dropdown-item notify-item">Logout</button>
-                </form>
-
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Register">
+                <button type="submit" class="dropdown-item notify-item">Register</button>
+            </form>
         </div>
-    }
-    else
-    {
-
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
 
     }
 
