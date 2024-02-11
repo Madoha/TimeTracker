@@ -9,6 +9,7 @@ namespace TimeTracker.SubscribeTableDependencies
     {
         SqlTableDependency<Finance> tableDependency;
         DashboardHub dashboardHub;
+        string userId;
 
         public SubscribeFinanceTableDependency(DashboardHub dashboardHub)
         {

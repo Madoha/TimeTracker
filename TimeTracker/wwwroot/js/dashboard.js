@@ -4,7 +4,6 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/dashboardHub").bui
 
 $(function () {
 	connection.start().then(function () {
-		alert('Connected to dashboardHub');
 
 		InvokeFinances();
 
@@ -13,9 +12,7 @@ $(function () {
 	});
 });
 
-// Product
 function InvokeFinances() {
-	debugger;
 	connection.invoke("SendFinances").catch(function (err) {
 		return console.error(err.toString());
 	});

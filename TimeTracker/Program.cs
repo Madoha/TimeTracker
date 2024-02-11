@@ -46,6 +46,8 @@ namespace TimeTracker
 
             builder.Services.AddTransient<IUserRepository, UserRepository>();
 
+            builder.Services.AddTransient<ITimerRepository, TimerRepository>();
+
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();

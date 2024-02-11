@@ -5,6 +5,6 @@ namespace TimeTracker.Repositories.Interfaces
 {
     public interface FinanceRepository
     {
-        List<Finance> GetFinances();
+        List<Finance> GetFinances(string userId);
     }
 }

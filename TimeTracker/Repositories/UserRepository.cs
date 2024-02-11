@@ -9,9 +9,11 @@ namespace TimeTracker.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext context)
+        private readonly UserManager<User> _userManager;
+        public UserRepository(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<List<User>> GetUsersAsync()
@@ -34,5 +36,6 @@ namespace TimeTracker.Repositories
             user.LockoutEnd = null;
             await _context.SaveChangesAsync();
         }
+
     }
 }

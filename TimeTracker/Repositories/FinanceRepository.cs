@@ -37,7 +37,7 @@ namespace TimeTracker.Repositories
                 .Select(g => new FinanceForGraph
                 {
                     Category = g.Key.ToString(),
-                    Finances = g.Count()
+                    Finances = (int)g.Sum(q => q.Amount)
                 }).ToList();
             return financesForGraph;
         }

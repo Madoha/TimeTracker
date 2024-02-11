@@ -8,5 +8,6 @@ namespace TimeTracker.Repositories.Interfaces
         Task<List<User>> GetUsersAsync();
         Task BlockUserAsync(string id);
         Task UnblockUserAsync(string id);
+
     }
 }
